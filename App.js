@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import AddTodo from './components/AddTodo';
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
 
@@ -14,11 +15,21 @@ export default function App() {
     setTodos(prevTodos => prevTodos.filter(item => item.key !== key));
   }
 
+  const handleSubmit = (text) => {
+    setTodos(prevTodos => (
+      [
+        { text, key: prevTodos.length + 1 },
+        ...prevTodos
+      ]
+    ))
+  }
+
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content}>
         <View style={styles.list}>
+          <AddTodo onSubmit={handleSubmit} />
           <FlatList
             data={todos}
             keyExtractor={item => item.key.toString()}
