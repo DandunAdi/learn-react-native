@@ -1,33 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-  const [name, setName] = useState("DDD");
-  const [age, setAge] = useState("20");
+  const [people, setPeople] = useState([
+    { name: "AAA", key: 1 },
+    { name: "BBB", key: 2 },
+    { name: "CCC", key: 3 },
+    { name: "DDD", key: 4 },
+    { name: "EEE", key: 5 },
+    { name: "FFF", key: 6 },
+    { name: "GGG", key: 7 },
+    { name: "HHH", key: 8 },
+    { name: "III", key: 9 },
+    { name: "JJJ", key: 10 },
+    { name: "KKK", key: 11 },
+  ])
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.textBold}>Hello, World!</Text>
-      </View>
-      <View style={styles.body}>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g. John"
-          multiline
-          value={name}
-          onChangeText={(val) => setName(val)}
-        />
-        <TextInput
-          style={styles.input}
-          keyboardType="numeric"
-          placeholder="90"
-          value={age}
-          onChangeText={(val) => setAge(val)}
-        />
-        <Text>My name is {name} and my age is {age}!</Text>
-      </View>
+      <ScrollView>
+        {people.map((person) => (
+          <View key={person.key}>
+            <Text style={styles.person}>{person.name}</Text>
+          </View>
+        ))}
+      </ScrollView>
       <StatusBar style="auto" />
     </View>
   );
@@ -37,26 +35,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 20,
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
-  header: {
-    backgroundColor: "pink",
-    padding: 20,
-  },
-  textBold: {
-    fontWeight: "bold",
-  },
-  body: {
-    backgroundColor: "yellow",
-    padding: 20
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#777",
-    backgroundColor: "white",
-    padding: 8,
-    margin: 10,
-    width: 200,
+  person: {
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: "magenta",
+    fontSize: 24,
   }
 });
