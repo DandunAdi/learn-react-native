@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [people, setPeople] = useState([
-    { name: "AAA", id: 1 },
+    { name: "ZZZ", id: 1 },
     { name: "BBB", id: 2 },
     { name: "CCC", id: 3 },
     { name: "DDD", id: 4 },
@@ -15,16 +15,26 @@ export default function App() {
     { name: "III", id: 9 },
     { name: "JJJ", id: 10 },
     { name: "KKK", id: 11 },
-  ])
+  ]);
+
+  const handlePress = (id) => {
+    console.log(id);
+
+    setPeople(prevPeople => {
+      return prevPeople.filter(person => person.id !== id)
+    })
+  }
 
   return (
     <View style={styles.container}>
 
       <FlatList
         data={people}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <Text style={styles.person}>{item.name}</Text>
+          <TouchableOpacity onPress={() => handlePress(item.id)}>
+            <Text style={styles.person}>{item.name}</Text>
+          </TouchableOpacity>
         )}
       />
 
