@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Header from './components/Header';
+import TodoItem from './components/TodoItem';
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -8,6 +9,10 @@ export default function App() {
     { text: "Walk my dog", key: 2 },
     { text: "Badminton", key: 3 },
   ]);
+
+  const handlePress = (key) => {
+    setTodos(prevTodos => prevTodos.filter(item => item.key !== key));
+  }
 
   return (
     <View style={styles.container}>
@@ -18,7 +23,7 @@ export default function App() {
             data={todos}
             keyExtractor={item => item.key.toString()}
             renderItem={({ item }) => (
-              <Text>{item.text}</Text>
+              <TodoItem item={item} onPress={handlePress} />
             )}
           />
         </View>
